@@ -43,7 +43,7 @@ font-size: 64px;
 `
 
 export const Text2 = styled.div`
-
+font-size: 32px;
 `
 
 export const Text3 = styled.div`
