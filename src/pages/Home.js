@@ -4,6 +4,7 @@ import { Col, Input, LongButton, OpacityButton, Row, SmallButton, Text1, Text3, 
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import $ from 'jquery';
 
 const Banner = styled.div`
 display: flex;
@@ -42,15 +43,21 @@ const Home = () => {
 
     const navigate = useNavigate();
     const [content, setContent] = useState(undefined);
+    const [carNumber, setCarNumber] = useState("");
     const [url, setUrl] = useState("");
     const addFile = (e) => {
         if (e.target.files[0]) {
             setContent(e.target.files[0]);
             setUrl(URL.createObjectURL(e.target.files[0]))
         }
+        $('#file1').val("");
     };
     const onClickNextStep = async () => {
-        navigate('/result')
+        navigate('/result', {
+            state: {
+                carNumber,
+            }
+        })
     }
     return (
         <>
@@ -90,14 +97,26 @@ const Home = () => {
                 <Col style={{ margin: '2rem auto', width: '100%' }}>
                     <Row style={{ margin: '1rem auto', alignItems: 'center', columnGap: '1rem' }}>
                         <SmallButton>차량 번호 입력</SmallButton>
-                        <TextField size='small' />
+                        <TextField
+                            size='small'
+                            value={carNumber}
+                            onChange={(e) => {
+                                setCarNumber(e.target.value)
+                            }}
+                        />
                     </Row>
                     <LongButton style={{ margin: '0 auto' }} for="file1">파일 업로드</LongButton>
                     <div>
                         <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                     </div>
+
                     {content &&
                         <>
+                            <img src={url} alt="#"
+                                style={{
+                                    width: 'auto', height: '150px',
+                                    margin: '1rem auto'
+                                }} />
                             <Button style={{ margin: '1rem auto', width: '80%', maxWidth: '500px' }} variant='outlined' onClick={onClickNextStep}>확인</Button>
                         </>}
                 </Col>
