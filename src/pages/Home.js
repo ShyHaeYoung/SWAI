@@ -44,8 +44,8 @@ align-items: flex-start;
 const ExampleImg = styled.img`
 position: absolute;
 width:300px;
-right: -250px;
-top: -150px;
+left: 0;
+top: -200px;
 `
 const Home = () => {
 
