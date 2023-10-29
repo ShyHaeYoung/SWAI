@@ -33,6 +33,7 @@ border-radius: 0.25rem;
 export const OpacityButton = styled.div`
 border:1px solid #000;
 border-radius: 1rem;
+cursor: pointer;
 padding: 0.25rem 0.5rem;
 `
 export const Input = styled.input`

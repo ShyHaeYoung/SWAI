@@ -5,7 +5,7 @@ import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
-
+import ExampleImgSrc from '../assets/example.jpg'
 const Banner = styled.div`
 display: flex;
 flex-direction: column;
@@ -19,6 +19,7 @@ padding: 0.5rem 0;
 border-bottom: 1px solid #000;
 margin-bottom: 0.5rem;
 max-width: 150px;
+width:100%;
 `
 const ExplainContainer = styled.div`
 display: flex;
@@ -35,9 +36,16 @@ const TextContainer = styled.div`
 display: flex;
 justify-content: space-between;
 width: 85%;
+align-items: flex-start;
 @media screen and (max-width: 800px){
     flex-direction:column;
 }
+`
+const ExampleImg = styled.img`
+position: absolute;
+width:300px;
+right: -250px;
+top: -150px;
 `
 const Home = () => {
 
@@ -45,6 +53,7 @@ const Home = () => {
     const [content, setContent] = useState(undefined);
     const [carNumber, setCarNumber] = useState("");
     const [url, setUrl] = useState("");
+    const [showExampleImg, setShowExampleImg] = useState(false);
     const addFile = (e) => {
         if (e.target.files[0]) {
             setContent(e.target.files[0]);
@@ -69,25 +78,30 @@ const Home = () => {
                     <ExplainContainer>
                         <OpacityButton>사용방법</OpacityButton>
                         <TextContainer>
-                            <Col style={{ maxWidth: '150px' }}>
+                            <Col style={{ maxWidth: '150px', alignItems: 'flex-start', position: 'relative' }}>
+                                <OpacityButton style={{ width: 'auto' }} onMouseOver={() => {
+                                    setShowExampleImg(true);
+                                }}
+                                onMouseLeave={()=>{
+                                    setShowExampleImg(false);
+                                }}
+                                >예시</OpacityButton>
                                 <StepTitle>STEP 1</StepTitle>
-                                <Text4>아래의 업로드 버튼을 눌러 차체
-                                    를 360°로 촬영한 영상을 업로
-                                    드한다.</Text4>
+                                <Text4>아래의 업로드 버튼을 눌러 예시와 같은 각도로 챠랑을 찍은 이미지들을 업로드한다.</Text4>
+                                <ExampleImg src={ExampleImgSrc} style={{ display: `${showExampleImg ? 'flex' : 'none'}` }} />
                             </Col>
                             <Col style={{ maxWidth: '150px' }}>
-                                <StepTitle>STEP 2</StepTitle>
+                                <StepTitle style={{ marginTop: '31px' }}>STEP 2</StepTitle>
                                 <Text4>업로드 후 나오는 페이지에서 AI
                                     가 해당 부품의 결함 유무를 판별
                                     할 때까지 기다린다.</Text4>
                             </Col>
                             <Col style={{ maxWidth: '150px' }}>
-                                <StepTitle>STEP 3</StepTitle>
-                                <Text4>판별 후 품질 결함이 있는 부품이
-                                    체크된 영상이 나온다.</Text4>
+                                <StepTitle style={{ marginTop: '31px' }}>STEP 3</StepTitle>
+                                <Text4>판별 후 품질 결함이 있는 부품이 체크된 영상이 나온다.</Text4>
                             </Col>
                             <Col style={{ maxWidth: '150px' }}>
-                                <StepTitle>STEP 4</StepTitle>
+                                <StepTitle style={{ marginTop: '31px' }}>STEP 4</StepTitle>
                                 <Text4>결함 부품의 개수, 불량 사유 등과
                                     함께 결과에 대한 리포트가 나온다.</Text4>
                             </Col>
