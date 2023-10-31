@@ -100,7 +100,6 @@ const Result = () => {
 
     const getResultData = async () => {
         const { data: response } = await axios.get(`/api/dummy-data/${location.state?.carNumber}`);
-        console.log(response);
         setCarData(response);
         let car_donut_list = [];
         car_donut_list.push(response?.scratch)
