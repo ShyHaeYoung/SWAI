@@ -114,5 +114,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0"
-  }
+  },
+  "proxy":"http://ec2-43-202-16-62.ap-northeast-2.compute.amazonaws.com:8080"
 }
