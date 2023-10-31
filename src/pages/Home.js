@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 import ExampleImgSrc from '../assets/example.jpg'
+import { useEffect } from 'react';
 const Banner = styled.div`
 display: flex;
 flex-direction: column;
@@ -50,14 +51,18 @@ top: -200px;
 const Home = () => {
 
     const navigate = useNavigate();
-    const [content, setContent] = useState(undefined);
+    const [content, setContent] = useState([]);
     const [carNumber, setCarNumber] = useState("");
-    const [url, setUrl] = useState("");
+    const [url, setUrl] = useState([]);
     const [showExampleImg, setShowExampleImg] = useState(false);
     const addFile = (e) => {
-        if (e.target.files[0]) {
-            setContent(e.target.files[0]);
-            setUrl(URL.createObjectURL(e.target.files[0]))
+        let files = [...e.target.files];
+        setContent([...content, ...files])
+        if (files.length > 0) {
+            let url_list = files.map((file) => {
+                return URL.createObjectURL(file)
+            })
+            setUrl([...url, ...url_list])
         }
         $('#file1').val("");
     };
@@ -68,6 +73,7 @@ const Home = () => {
             }
         })
     }
+
     return (
         <>
             <Wrappers>
@@ -82,9 +88,9 @@ const Home = () => {
                                 <OpacityButton style={{ width: 'auto' }} onMouseOver={() => {
                                     setShowExampleImg(true);
                                 }}
-                                onMouseLeave={()=>{
-                                    setShowExampleImg(false);
-                                }}
+                                    onMouseLeave={() => {
+                                        setShowExampleImg(false);
+                                    }}
                                 >예시</OpacityButton>
                                 <StepTitle>STEP 1</StepTitle>
                                 <Text4>아래의 업로드 버튼을 눌러 예시와 같은 각도로 챠랑을 찍은 이미지들을 업로드한다.</Text4>
@@ -121,16 +127,19 @@ const Home = () => {
                     </Row>
                     <LongButton style={{ margin: '0 auto' }} for="file1">파일 업로드</LongButton>
                     <div>
-                        <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
+                        <input type="file" id="file1" multiple={true} onChange={addFile} style={{ display: 'none' }} />
                     </div>
-
-                    {content &&
+                    {content.length > 0 &&
                         <>
-                            <img src={url} alt="#"
-                                style={{
-                                    width: 'auto', height: '150px',
-                                    margin: '1rem auto'
-                                }} />
+                            <Row style={{ flexWrap: 'wrap' }}>
+                                {url && url.map(item => (
+                                    <img src={item} alt="#"
+                                        style={{
+                                            width: 'auto', height: '150px',
+                                            margin: '1rem'
+                                        }} />
+                                ))}
+                            </Row>
                             <Button style={{ margin: '1rem auto', width: '80%', maxWidth: '500px' }} variant='outlined' onClick={onClickNextStep}>확인</Button>
                         </>}
                 </Col>
