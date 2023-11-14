@@ -6,7 +6,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 import ExampleImgSrc from '../assets/example.jpg'
-import { useEffect } from 'react';
+import { serialize } from 'object-to-formdata';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 const Banner = styled.div`
 display: flex;
 flex-direction: column;
@@ -57,6 +59,13 @@ const Home = () => {
     const [showExampleImg, setShowExampleImg] = useState(false);
     const addFile = (e) => {
         let files = [...e.target.files];
+        for (var i = 0; i < files.length; i++) {
+            if (!(files[i]?.type == 'image/jpeg' || files[i]?.type == 'image/png')) {
+                toast.error('png 또는 jpeg 파일 형식만 업로드 가능합니다.');
+                $('#file1').val("");
+                return;
+            }
+        }
         setContent([...content, ...files])
         if (files.length > 0) {
             let url_list = files.map((file) => {
@@ -64,14 +73,37 @@ const Home = () => {
             })
             setUrl([...url, ...url_list])
         }
-        $('#file1').val("");
     };
     const onClickNextStep = async () => {
-        navigate('/result', {
-            state: {
+        if (!carNumber) {
+            toast.error('차량번호를 입력해 주세요.');
+            return;
+        }
+        if (content.length == 0) {
+            toast.error('차량 이미지 파일을 업로드 해주세요.');
+            return;
+        }
+        try {
+            let obj = {
                 carNumber,
+                imageList: content,
             }
-        })
+            let formData = new FormData();
+            let form_data_options = {
+                indices: true,
+            }
+            formData = serialize(obj, form_data_options);
+            const response = await axios.post(`/api/inspection`, formData);
+            if (response?.status == 201) {
+                navigate(`/result/${carNumber}`)
+            }
+        } catch (err) {
+            console.log(err);
+            if (err?.response?.status == 400) {
+                toast.error('차량번호가 중복됩니다.' + ` (${err?.response?.status})`);
+            }
+            return;
+        }
     }
 
     return (

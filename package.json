@@ -33,6 +33,7 @@
     "little-loader": "^0.2.0",
     "macaddress": "^0.5.3",
     "material-ui-dropzone": "^3.5.0",
+    "object-to-formdata": "^4.5.1",
     "payment": "^2.4.6",
     "quill-emoji": "^0.2.0",
     "quill-image-resize-module-react": "^3.0.0",
@@ -115,5 +116,5 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0"
   },
-  "proxy":"http://ec2-43-202-16-62.ap-northeast-2.compute.amazonaws.com:8080"
+  "proxy": "http://ec2-43-202-16-62.ap-northeast-2.compute.amazonaws.com:8080"
 }
