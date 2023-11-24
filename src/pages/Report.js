@@ -8,6 +8,7 @@ import { excelDownload, returnMoment } from "../utils/utils";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
+import _ from "lodash";
 
 const RowWrappers = styled.div`
 display: flex;
@@ -127,6 +128,7 @@ const Report = () => {
         try {
             setReports(undefined);
             const { data: response } = await axios.get(`/api/report/${dat}`);
+
             setReports(response);
         } catch (err) {
             console.log(err)
@@ -170,6 +172,12 @@ const Report = () => {
                         <SmallButton>
                             날짜선택
                         </SmallButton>
+                        <Row>
+                            총 검사 개수: {reports?.length}개
+                        </Row>
+                        <Row>
+                            불량 차량 개수: {reports?.filter(item => item?.totalDefects > 0)?.length ?? 0}개
+                        </Row>
                         <SmallButton style={{ marginLeft: 'auto' }}
                             onClick={onDownloadExcel}>
                             다운로드

@@ -124,9 +124,9 @@ const Result = () => {
         } catch (err) {
             console.log(err)
             toast.error(err?.response?.data);
-            setTimeout(() => {
-                navigate(-1);
-            }, 500);
+            // setTimeout(() => {
+            //     navigate(-1);
+            // }, 500);
         }
     }
     return (
