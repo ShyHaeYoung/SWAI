@@ -169,10 +169,10 @@ const Result = () => {
                             </div>
                             <Col style={{ margin: 'auto', rowGap: '0.5rem' }}>
                                 <div>스크래치가 {carData?.scratch}개 발견되었습니다.</div>
-                                <div>장착불량가 {carData?.installation}개 발견되었습니다.</div>
-                                <div>외관손상가 {carData?.exterior}개 발견되었습니다.</div>
+                                <div>장착불량이 {carData?.installation}개 발견되었습니다.</div>
+                                <div>외관손상이 {carData?.exterior}개 발견되었습니다.</div>
                                 <div>단차가 {carData?.gap}개 발견되었습니다.</div>
-                                <div>총 불량개수가 {carData?.totalDefects}개 발견되었습니다.</div>
+                                <div>총 불량개수는 {carData?.totalDefects}개 발견되었습니다.</div>
                             </Col>
                         </BorderContainer>
                     </Row>

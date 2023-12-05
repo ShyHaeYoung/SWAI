@@ -136,12 +136,13 @@ const Home = () => {
                             </Col>
                             <Col style={{ maxWidth: '150px' }}>
                                 <StepTitle style={{ marginTop: '31px' }}>STEP 3</StepTitle>
-                                <Text4>판별 후 품질 결함이 있는 부품이 체크된 영상이 나온다.</Text4>
+                                <Text4>판별 후 품질 결함이 있는 부품이 체크된 이미지가 나온다.</Text4>
                             </Col>
                             <Col style={{ maxWidth: '150px' }}>
                                 <StepTitle style={{ marginTop: '31px' }}>STEP 4</StepTitle>
-                                <Text4>결함 부품의 개수, 불량 사유 등과
-                                    함께 결과에 대한 리포트가 나온다.</Text4>
+                                <Text4>보고서 페이지로 넘어가면 오늘의 검사결과를 볼 수 있고
+                                    차량번호를 클릭하면 해당 차량의
+                                     상세 결과 페이지로 넘어갈 수 있다.</Text4>
                             </Col>
                         </TextContainer>
                     </ExplainContainer>
